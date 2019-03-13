@@ -5,18 +5,24 @@ import java.util.Arrays;
 import pkgHelper.LatinSquare;
 
 public class Sudoku extends LatinSquare{
-	
+	private double iSize ;
+	private double iSqrtSize;
 	
 	public Sudoku() {
 		super();
 	}
 	
-	public Sudoku(int[][] latinsquare) {
-		super(latinsquare);
+	public Sudoku(int size) {
+		this.iSize = size;
+		this.iSqrtSize = Math.sqrt(size);
+	}
+	
+	public Sudoku(int[][] puzzle) {
+		super(puzzle);
 	}
 	
 	protected int[][] getPuzzle(){
-		return super.getLatinSquare();
+		return super.getSudoku();
 	}
 	
 	protected int[] getRegion(int iRegionNbr) {
