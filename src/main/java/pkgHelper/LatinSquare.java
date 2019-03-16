@@ -2,6 +2,8 @@ package pkgHelper;
 
 import java.util.Arrays;
 
+import pkgEnum.ePuzzleViolation;
+
 public class LatinSquare {
 
 	/**
@@ -191,7 +193,7 @@ public class LatinSquare {
 	 *            - one dimensional array to check for duplicates
 	 * @return - returns 'true' if any of the elements are duplicate
 	 */
-	public boolean hasDuplicates(int[] arr) {
+	protected boolean hasDuplicates(int[] arr) {
 
 		// TODO: Return 'true' if any element in arr is duplicate
 
@@ -205,7 +207,34 @@ public class LatinSquare {
 				break;
 			}
 		}
+		
+		
 		return hasDuplicates;
+	}
+	
+	/**
+	 * Returns true if any element in column or row is duplicate
+	 * 
+	 * @version 1.1
+	 * @since Lab #2
+	 * @return - returns 'true' if any element in column or row is duplicate
+	 */
+	protected boolean hasDuplicates() /*throws Exception*/ {
+		for (int i = 0; i < LatinSquare.length; i++) {
+			if (hasDuplicates(getRow(i))) {
+				addPV(new PuzzleViolation(ePuzzleViolation.DupRow, i));
+			}
+			
+			if (hasDuplicates(getColumn(i))) {
+				//addPV(new PuzzleViolation(ePuzzleViolation.DupRow, i));
+			}
+			
+		}
+	}
+
+	private void addPV(PuzzleViolation puzzleViolation) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	/**
