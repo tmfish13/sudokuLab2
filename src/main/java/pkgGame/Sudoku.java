@@ -7,8 +7,8 @@ import org.apache.commons.lang.ArrayUtils;
 import pkgHelper.LatinSquare;
 
 public class Sudoku extends LatinSquare{
-	private static int iSize ;
-	private int iSqrtSize;
+	private static int iSize = 0;
+	private int iSqrtSize = 0;
 	
 	
 	/* this constructor will take in an int to create an instance of sudoku
@@ -16,20 +16,18 @@ public class Sudoku extends LatinSquare{
 	 * to be made and assigned a size and region size based on the input
 	 */
 	public Sudoku(int i) {
-		double well = Math.sqrt(i) - Math.floor(Math.sqrt(i));
-		if(well == 0) {
+		
 			this.iSize = i;
 			this.iSqrtSize = (int) Math.sqrt(i);
-		}else {
-			
 		}
-	}
 	/*
 	 * This constructor for sudoku takes in a defined latinsquare and sets it to a sudoku
 	 */
 	public Sudoku(int[][] latinSquare) {
 		
 		super(latinSquare);
+		this.iSize = latinSquare.length;
+		this.iSqrtSize = (int) Math.sqrt(iSize);
 	}
 	
 	protected int[][] getPuzzle(){
@@ -45,16 +43,15 @@ public class Sudoku extends LatinSquare{
 			
 		int[] regionArray = new int[iSize];
 			
-		int regionLength = iSqrtSize;
-			
-		int row = (int) Math.floor(iRegionNbr/regionLength)*regionLength;
-		int col = (int) (iRegionNbr-row)*regionLength;
+		int row = (int) Math.floor(iRegionNbr/iSqrtSize)*iSqrtSize;
+		int col = (int) (iRegionNbr-row)*iSqrtSize;
 			
 		int count = 0;
 			
-		for(int i = row; i < row+regionLength; i++) {
-			for(int j = col; j < col+regionLength; j++) {
+		for(int i = row; i < row+iSqrtSize; i++) {
+			for(int j = col; j < col+iSqrtSize; j++) {
 				regionArray[count] = sudokuSquare[i][j];
+				count++;
 			}
 		}
 			
@@ -69,7 +66,9 @@ public class Sudoku extends LatinSquare{
 		return getRegion((int)(Math.floor(Row/iSqrtSize)*iSqrtSize+Math.floor(Col/iSqrtSize)));	
 	}
 
-	
+	/*
+	 * returns true only if isPartialSudoku and each element doesn't have a zero
+	 */
 	protected boolean isSudoku() {
 		setbIgnoreZero(false);
 		boolean isSudoku = true;
@@ -113,7 +112,10 @@ public class Sudoku extends LatinSquare{
 	}
 	
 	/*
-	 * 
+	 * returns true only if...
+	 * it's a latin square, if each region doesn't have duplicates,
+	 * if each element in the first row of the puzzle in each region of the puzzle,
+	 * and if at least one of the elements is a zero.
 	 */
 	
 	protected boolean isPartialSudoku() {
@@ -173,7 +175,7 @@ public class Sudoku extends LatinSquare{
 		}
 	}
 	/*
-	 * Tests to see if a given value would work for a given column / row
+	 * Tests to see if a given value would work for a given column or row
 	 */
 	
 	protected boolean isValidValue(int iValue, int iRow, int iCol) {
