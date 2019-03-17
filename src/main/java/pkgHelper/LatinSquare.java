@@ -2,6 +2,8 @@ package pkgHelper;
 
 import java.util.Arrays;
 
+import org.apache.commons.lang.ArrayUtils;
+
 import pkgEnum.ePuzzleViolation;
 
 public class LatinSquare {
@@ -296,6 +298,13 @@ public class LatinSquare {
 	 * passes in
 	 * @return
 	 */
+	
+	protected int[] removeZeros(int[] arr) {
+		while (ArrayUtils.contains(arr, 0)) {
+			arr = ArrayUtils.removeElement(arr, 0);
+		}
+		return arr;
+	}
 	
 	
 	protected java.util.ArrayList<PuzzleViolation> getPV(){

@@ -77,12 +77,11 @@ public class Sudoku extends LatinSquare{
 	protected boolean hasDuplicates(int[] arr) {
 		boolean hasDuplicates = false;
 		if(isbIgnoreZero()) {
-			while (ArrayUtils.contains(arr, 0)) {
-				arr = ArrayUtils.removeElement(arr, 0);
-			}
+			removeZeros(arr);
+			return super.hasDuplicates(arr);
+			}else {
+				return super.hasDuplicates(arr);
 		}
-		
-		return hasDuplicates;
 	}
 	
 	protected boolean isValidValue(int iValue, int iRow, int iCol) {
