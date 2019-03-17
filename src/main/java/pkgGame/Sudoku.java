@@ -5,56 +5,59 @@ import java.util.Arrays;
 import pkgHelper.LatinSquare;
 
 public class Sudoku extends LatinSquare{
-	private double iSize ;
+	private static double iSize ;
 	private double iSqrtSize;
 	
-	public Sudoku() {
-		super();
+	
+	/* this constructor will take in an int to create an instance of sudoku
+	 * based on whether the int is a perfect square or not will allow the instance 
+	 * to be made and assigned a size and region size based on the input
+	 */
+	public Sudoku(int i) {
+		double well = Math.sqrt(i) - Math.floor(i);
+		if(well == 0) {
+			this.iSize = i;
+			this.iSqrtSize = Math.sqrt(i);
+		}
 	}
-	
-	public Sudoku(int size) {
-		this.iSize = size;
-		this.iSqrtSize = Math.sqrt(size);
-	}
-	
-	public Sudoku(int[][] puzzle) {
-		super(puzzle);
-	}
-	
-	
-	// The hasDuplicates for Sudoku should use the parts of the old 
-	// method and add in checking through regions for duplicates as well
-	
-	@Override
-	public boolean hasDuplicates() {
-		super.hasDuplicates();
+	/*
+	 * This constructor for sudoku takes in a defined latinsquare and sets it to a sudoku
+	 */
+	public Sudoku(int[][] latinSquare) {
 		
-		for (int k = 0; k < sortedArray.length - 1; k++) {
-			if (sortedArray[k] == sortedArray[=k + 1]) {
-				hasDuplicates = true;
-				addPV.
-				break;
+		super(latinSquare);
 	}
 	
+	protected int[][] getPuzzle(){
+		return super.getLatinSquare();
+	}
 	
+	protected int[] getRegion(int regionNumber) {
+		return null;
+	}
 	
-
-	// getRegion will access the Sudoku and based on which int is inputted,
-	// The method will return the region designated to that int
-	protected int[] getRegion(int n) {
-		int[] myRegion = new int[puzzle.length];
-		int index = 0;
-		int iSize = puzzle.length;
-		int iSizeSqrt = (int) Math.sqrt(iSize);
-		
-		if ((n+1) > iSize)
-			throw new Exception("No region available");
-			
-		for (int iRow = (n / iSizeSqrt) * iSizeSqrt; iRow <((n / iSizeSqrt) * iSizeSqrt))
-			for(int iCol = (n % iSizeSqrt) * iSizeSqrt; iCol < ((n % iSizeSqrt)* iSizeSqrt))
-				myRegion[++index] = puzzle[iRow][iCol];
+	protected int[] getRegion(int colNum, int rowNum) {
+		return null;
+	}
+	
+	protected boolean isSudoku() {
+		bIgnoreZero = false;
+		return false;
+	}
+	
+	protected boolean isPartialSudoku() {
+		bIgnoreZero = true;
+		return false;
+	}
+	
+	protected boolean isValidValue(int iValue, int iRow, int iCol) {
+		if(iValue <= Sudoku.iSize) {
+			getRow(iRow);
+			getColumn(iCol);
+			return true;
+		}else {
+			return false;
 		}
 		
 	}
-	
 }

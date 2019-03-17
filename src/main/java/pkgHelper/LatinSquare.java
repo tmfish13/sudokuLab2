@@ -5,6 +5,9 @@ import java.util.Arrays;
 import pkgEnum.ePuzzleViolation;
 
 public class LatinSquare {
+	
+	protected boolean bIgnoreZero = true;
+	private java.util.ArrayList<PuzzleViolation> PV;
 
 	/**
 	 * LatinSquare - two dimensional array that's the core of the puzzle
@@ -54,6 +57,16 @@ public class LatinSquare {
 		}
 		return false;
 
+	}
+	
+	
+	
+	public boolean isbIgnoreZero() {
+		return bIgnoreZero;
+	}
+
+	public void setbIgnoreZero(boolean bIgnoreZero) {
+		this.bIgnoreZero = bIgnoreZero;
 	}
 
 	/**
@@ -219,23 +232,7 @@ public class LatinSquare {
 	 * @since Lab #2
 	 * @return - returns 'true' if any element in column or row is duplicate
 	 */
-	protected boolean hasDuplicates() /*throws Exception*/ {
-		for (int i = 0; i < LatinSquare.length; i++) {
-			if (hasDuplicates(getRow(i))) {
-				addPV(new PuzzleViolation(ePuzzleViolation.DupRow, i));
-			}
-			
-			if (hasDuplicates(getColumn(i))) {
-				//addPV(new PuzzleViolation(ePuzzleViolation.DupRow, i));
-			}
-			
-		}
-	}
-
-	private void addPV(PuzzleViolation puzzleViolation) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	/**
 	 * isLatinSquare - return 'true' if: Each row and column doesn't contain
@@ -295,5 +292,24 @@ public class LatinSquare {
 	public void setLatinSquare(int[][] latinSquare) {
 		LatinSquare = latinSquare;
 	}
+	
+	/**
+	 * passes in
+	 * @return
+	 */
+	
+	
+	protected java.util.ArrayList<PuzzleViolation> getPV(){
+		return PV;
+	}
+	
+	protected void ClearPuzzleViolation() {
+		PV.clear();
+	}
+	
+	protected void AddPuzzleViolation​(PuzzleViolation pv) {
+		PV.add(pv);
+	}
+	
 	
 }
