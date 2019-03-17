@@ -14,7 +14,7 @@ public enum ePuzzleViolation {
 		return null;
 	}
 	
-	public static ePuzzleViolation valueOf​(java.lang.String name) {
+	public static ePuzzleViolation valueOf​(String name) {
 		return null;
 		
 	}
