@@ -72,7 +72,44 @@ public class Sudoku extends LatinSquare{
 	
 	protected boolean isSudoku() {
 		setbIgnoreZero(false);
-		return true;
+		boolean isSudoku = true;
+		for (int i = 0; i < Sudoku.iSize; i++) {
+			if (hasDuplicates(getRow(i)))
+				return false;
+		}
+
+		for (int j = 0; j < Sudoku.iSize; j++) {
+			if (hasDuplicates(getColumn(j)))
+				return false;
+		}
+
+		for (int i = 1; i < Sudoku.iSize; i++) {
+
+			if (!hasAllValues(getRow(0), getRow(i))) {
+				return false;
+			}
+		}
+
+		for (int j = 1; j < Sudoku.iSize; j++) {
+
+			if (!hasAllValues(getColumn(0), getColumn(j))) {
+				return false;
+			}
+		}
+		
+		for (int k = 0; k < Sudoku.iSize; k++) {
+			if (hasDuplicates(getRegion(k))){
+				return false;
+			}
+		}
+		
+		for (int k = 1; k < Sudoku.iSize; k++) {
+			if (!hasAllValues(getRegion(0), getRegion(k))) {
+				return false;
+			}
+		}
+
+		return isSudoku;
 	}
 	
 	/*
