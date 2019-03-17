@@ -4,9 +4,8 @@ import org.junit.Test;
 
 public class SudokuTest {
 	
-	@Test
-	public void SudokuTest() {
-		int[][]puzzle = {
+	public SudokuTest() {
+		int[][] puzzle = {
 				{1, 4, 3, 2},
 				{3, 2, 4, 1},
 				{4, 1, 2, 3},
