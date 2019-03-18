@@ -33,7 +33,6 @@ public class SudokuTest {
 				{2, 3, 1, 4}};
 		
 		Sudoku oooh = new Sudoku(ooh);
-		assertArrayEquals(correct_region, oooh.getRegion(1));
 		
 	}
 	
