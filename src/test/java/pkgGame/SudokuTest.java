@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /*
- * creating an instance of soduku to test in other methods.
+ * creating an instance of Sudoku to test in other methods.
  */
 public class SudokuTest {
 	
@@ -22,9 +22,8 @@ public class SudokuTest {
 	
 	int[] iRegionValuesActual;
 
-	
 	@Test
-	public void getRegion_test1() {
+	public void TestRegionNbr() {
 		int[] correct_region = {3, 2, 4, 1};
 		int[][] ooh = {
 				{1, 4, 3, 2},
@@ -33,7 +32,28 @@ public class SudokuTest {
 				{2, 3, 1, 4}};
 		
 		Sudoku oooh = new Sudoku(ooh);
+		assertEquals(arrToString(oooh.getRegion(2, 1)), arrToString(correct_region));
+	}
+	
+	@Test
+	public void TestRegionNbr1() {
+		int[] correct_region = {3, 2, 4, 1};
+		int[][] ooh = {
+				{1, 4, 3, 2},
+				{3, 2, 4, 1},
+				{4, 1, 2, 3},
+				{2, 3, 1, 4}};
 		
+		Sudoku oooh = new Sudoku(ooh);
+		assertEquals(arrToString(oooh.getRegion(1)), arrToString(correct_region));
+	}
+	
+	public String arrToString(int[] array) {
+		String result = "";
+		for (int num : array) {
+			result += num + ", ";
+		}
+		return result;
 	}
 	
 	@Test
@@ -62,6 +82,20 @@ public class SudokuTest {
 	}
 	
 	@Test
+	public void isPartialSudoku_test2() {
+		int[][] ooh = {
+				{1, 4, 3, 2},
+				{3, 0, 4, 1},
+				{4, 1, 0, 3},
+				{2, 3, 1, 4}};
+		
+		Sudoku oooh = new Sudoku(ooh);
+		
+		assertEquals(oooh.isPartialSudoku(), true);
+	
+	}
+	
+	@Test
 	public void isSudoku_test1() {
 		int[][] ooh = {
 				{1, 4, 3, 2},
@@ -87,21 +121,4 @@ public class SudokuTest {
 		assertEquals(oooh.isSudoku(), false);
 	
 	}
-	
-	@Test
-	public void isPartialSudoku_test2() {
-		int[][] ooh = {
-				{1, 4, 3, 2},
-				{3, 0, 4, 1},
-				{4, 1, 0, 3},
-				{2, 3, 1, 4}};
-		
-		Sudoku oooh = new Sudoku(ooh);
-		
-		assertEquals(oooh.isPartialSudoku(), true);
-	
-	}
-	
-	
-	
 }
