@@ -7,9 +7,13 @@ import org.apache.commons.lang.ArrayUtils;
 import pkgEnum.ePuzzleViolation;
 
 public class LatinSquare {
-	
-	private boolean bIgnoreZero = true;
-	private java.util.ArrayList<PuzzleViolation> PV;
+
+	/**
+	 * bIgnoreZero -
+	 * 
+	 * @Since: Lab #1
+	 */
+	private boolean bIgnoreZero;
 
 	/**
 	 * LatinSquare - two dimensional array that's the core of the puzzle
@@ -18,6 +22,13 @@ public class LatinSquare {
 	 * @since Lab #1
 	 */
 	private int[][] LatinSquare;
+
+	/**
+	 * PV - ArrayList to collect PuzzleViolations
+	 * 
+	 * @Since: Lab #2
+	 */
+	private java.util.ArrayList<PuzzleViolation> PV;
 
 	/**
 	 * No-arg constructor, make it public, don't do anything in the constructor
@@ -32,14 +43,33 @@ public class LatinSquare {
 	/**
 	 * Pass in a given puzzle, set the LatinSquare
 	 * 
-	 * @param puzzle
-	 *            Pass in given LatinSquare puzzle (probably for testing)
+	 * @param puzzle Pass in given LatinSquare puzzle (probably for testing)
 	 * @version 1.1
 	 * @since Lab #1
 	 */
-
 	public LatinSquare(int[][] puzzle) {
 		this.LatinSquare = puzzle;
+		this.bIgnoreZero = false;
+		this.PV = new java.util.ArrayList<PuzzleViolation>();
+	}
+
+	/**
+	 * Adds a PuzzleViolation to the collection
+	 * 
+	 * @param pv
+	 * @since Lab #2A
+	 */
+	protected void addPuzzleViolation(PuzzleViolation pv) {
+		this.PV.add(pv);
+	}
+
+	/**
+	 * Clears the collection of PuzzleViolations
+	 * 
+	 * @since Lab #2A
+	 */
+	protected void clearPuzzleViolation() {
+		this.PV.clear();
 	}
 
 	/**
@@ -58,17 +88,6 @@ public class LatinSquare {
 			}
 		}
 		return false;
-
-	}
-	
-	
-	
-	public boolean isbIgnoreZero() {
-		return bIgnoreZero;
-	}
-
-	public void setbIgnoreZero(boolean bIgnoreZero) {
-		this.bIgnoreZero = bIgnoreZero;
 	}
 
 	/**
@@ -77,24 +96,17 @@ public class LatinSquare {
 	 * 
 	 * @version 1.1
 	 * @since Lab #1
-	 * @param arr
-	 *            - one dimensional array to check
-	 * @param iValue
-	 *            - value to check against one dimensional array
+	 * @param arr    - one dimensional array to check
+	 * @param iValue - value to check against one dimensional array
 	 * @return - return 'true' if iValue exists in arr
 	 */
 	public boolean doesElementExist(int[] arr, int iValue) {
-		// TODO: Return 'true' if iValue is found in arr
-
-		boolean doesElementExist = false;
 		for (int i = 0; i < arr.length; i++) {
 			if (iValue == arr[i]) {
-				doesElementExist = true;
-				break;
+				return true;
 			}
 		}
-		return doesElementExist;
-
+		return false;
 	}
 
 	/**
@@ -111,14 +123,10 @@ public class LatinSquare {
 	 *
 	 * @version 1.1
 	 * @since Lab #1
-	 * @param iCol
-	 *            The column you want returned from the two-dimensional array
+	 * @param iCol The column you want returned from the two-dimensional array
 	 * @return one dimensional array of values for the given column
 	 */
 	public int[] getColumn(int iCol) {
-
-		// TODO: Return a given column from LatinSquare
-
 		int[] Col = new int[this.LatinSquare.length];
 
 		for (int row = 0; row < this.LatinSquare.length; row++) {
@@ -128,7 +136,7 @@ public class LatinSquare {
 	}
 
 	/**
-	 * return LatinSquare instance attribute
+	 * returns LatinSquare instance attribute
 	 * 
 	 * @version 1.1
 	 * @since Lab #1
@@ -136,6 +144,16 @@ public class LatinSquare {
 	 */
 	public int[][] getLatinSquare() {
 		return LatinSquare;
+	}
+
+	/**
+	 * Returns the collection of PuzzleViolations
+	 * 
+	 * @return
+	 * @since Lab #2A
+	 */
+	protected java.util.ArrayList<PuzzleViolation> getPV() {
+		return this.PV;
 	}
 
 	/**
@@ -150,18 +168,11 @@ public class LatinSquare {
 	 * 
 	 * @version 1.1
 	 * @since Lab #1
-	 * @param iRow
-	 *            given row of the two dimensional array to return
+	 * @param iRow given row of the two dimensional array to return
 	 * @return one dimensional array of the given row
 	 */
 	public int[] getRow(int iRow) {
-		// TODO: Return a given row from LatinSquare
-
-		int[] Row = new int[this.LatinSquare.length];
-
-		Row = this.LatinSquare[iRow];
-
-		return Row;
+		return this.LatinSquare[iRow];
 	}
 
 	/**
@@ -169,15 +180,11 @@ public class LatinSquare {
 	 * 
 	 * @version 1.1
 	 * @since Lab #1
-	 * @param arr1
-	 *            target array
-	 * @param arr2
-	 *            source array
+	 * @param arr1 target array
+	 * @param arr2 source array
 	 * @return return 'true' if every element from source array is in target array
 	 */
 	public boolean hasAllValues(int[] arr1, int[] arr2) {
-		// TODO: Return 'true' if every element from arr2 is in arr1
-
 		boolean hasAllValues = true;
 		for (int j = 0; j < arr2.length; j++) {
 
@@ -204,28 +211,25 @@ public class LatinSquare {
 	 * 
 	 * @version 1.1
 	 * @since Lab #1
-	 * @param arr
-	 *            - one dimensional array to check for duplicates
+	 * @param arr - one dimensional array to check for duplicates
 	 * @return - returns 'true' if any of the elements are duplicate
 	 */
 	protected boolean hasDuplicates(int[] arr) {
 
-		// TODO: Return 'true' if any element in arr is duplicate
-
 		boolean hasDuplicates = false;
 		int[] sortedArray = Arrays.copyOf(arr, arr.length);
 		Arrays.sort(sortedArray);
-			for (int i = 0; i < sortedArray.length - 1; i++) {
-				if (sortedArray[i] == sortedArray[i + 1]) {
-					hasDuplicates = true;
-					break;
-				}
+
+		for (int i = 0; i < sortedArray.length - 1; i++) {
+			if (sortedArray[i] == sortedArray[i + 1]) {
+				hasDuplicates = true;
+				break;
 			}
-		
-		
+		}
+
 		return hasDuplicates;
 	}
-	
+
 	/**
 	 * Returns true if any element in column or row is duplicate
 	 * 
@@ -233,12 +237,34 @@ public class LatinSquare {
 	 * @since Lab #2
 	 * @return - returns 'true' if any element in column or row is duplicate
 	 */
-	
+	protected boolean hasDuplicates() throws Exception {
+		for (int i = 0; i < LatinSquare.length; i++) {
+			if (hasDuplicates(getRow(i))) {
+				addPuzzleViolation(new PuzzleViolation(ePuzzleViolation.DupRow, i));
+				return true;
+			}
+
+			if (hasDuplicates(getColumn(i))) {
+				addPuzzleViolation(new PuzzleViolation(ePuzzleViolation.DupRow, i));
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Should the processing ignore zeros (hasDuplicates, etc)
+	 * 
+	 * @return
+	 */
+	public boolean isbIgnoreZero() {
+		return this.bIgnoreZero;
+	}
 
 	/**
 	 * isLatinSquare - return 'true' if: Each row and column doesn't contain
 	 * duplicates If each element in the first row is found in every other row If
-	 * each element in the first coumn is found in every other column
+	 * each element in the first column is found in every other column
 	 * 
 	 * @version 1.1
 	 * @since Lab #1
@@ -247,13 +273,7 @@ public class LatinSquare {
 	public boolean isLatinSquare() {
 
 		boolean isLatinSquare = true;
-		// TODO: Return 'true' if...
-		// Each row and column doesn't contain duplicates
-		// If each element in the first row is found in every other row
-		// If each element in the first column is found in every other column
 
-		// Check to see if the any row or column has duplicates. If they do, return
-		// false;
 		for (int i = 0; i < LatinSquare.length; i++) {
 			if (hasDuplicates(getRow(i)))
 				return false;
@@ -282,42 +302,38 @@ public class LatinSquare {
 	}
 
 	/**
+	 * Removes any zeros in an array
+	 * 
+	 * @param arr
+	 * @return int[]
+	 * @since Lab #2
+	 */
+	protected int[] removeZeros(int[] arr) {
+		while (ArrayUtils.contains(arr, 0))
+			arr = ArrayUtils.removeElement(arr, 0);
+
+		return arr;
+	}
+
+	/**
 	 * set LatinSquare instance attribute
 	 * 
 	 * @version 1.1
 	 * @since Lab #1
-	 * @param latinSquare
-	 *            - pass in an instance of a possible LatinSquare
+	 * @param latinSquare - pass in an instance of a possible LatinSquare
 	 */
 
 	public void setLatinSquare(int[][] latinSquare) {
-		LatinSquare = latinSquare;
+		this.LatinSquare = latinSquare;
 	}
-	
+
 	/**
-	 * passes in
-	 * @return
+	 * Sets the processing to ignore zeros or not
+	 * 
+	 * @param bIgnoreZero
+	 * @since Lab #2
 	 */
-	
-	protected int[] removeZeros(int[] arr) {
-		while (ArrayUtils.contains(arr, 0)) {
-			arr = ArrayUtils.removeElement(arr, 0);
-		}
-		return arr;
+	protected void setbIgnoreZero(boolean bIgnoreZero) {
+		this.bIgnoreZero = bIgnoreZero;
 	}
-	
-	
-	protected java.util.ArrayList<PuzzleViolation> getPV(){
-		return PV;
-	}
-	
-	protected void ClearPuzzleViolation() {
-		PV.clear();
-	}
-	
-	protected void AddPuzzleViolation​(PuzzleViolation pv) {
-		PV.add(pv);
-	}
-	
-	
 }
